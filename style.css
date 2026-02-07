@@ -1,3 +1,4 @@
+/* style.css */
 * {
   margin: 0;
   padding: 0;
@@ -6,7 +7,7 @@
 }
 
 body {
-  font-family: Georgia, 'Times New Roman', serif;
+  font-family: Georgia, serif;
   min-height: 100vh;
   display: flex;
   justify-content: center;
@@ -14,6 +15,7 @@ body {
   text-align: center;
   overflow: hidden;
   position: relative;
+  color: #000;
 }
 
 .background {
@@ -33,21 +35,31 @@ body {
   z-index: 10;
 }
 
+.fixed-content {
+  position: sticky;
+  top: 20px;
+  z-index: 5;
+}
+
 .text {
   font-size: 26px;
   line-height: 1.4;
-  color: black;
-  text-shadow: 0 2px 6px rgba(0,0,0,0.5);
+  text-shadow: 0 2px 6px rgba(0,0,0,0.2);
   margin-bottom: 30px;
 }
 
-.buttons-container {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  width: 100%;
-  margin-top: 20px;
-  position: relative; 
+.question-image {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 16px;
+  margin: 20px 0;
+  border: 3px solid #fff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.buttons-area {
+  margin-top: 30px;
 }
 
 .btn {
@@ -58,12 +70,12 @@ body {
   cursor: pointer;
   font-family: Georgia, serif;
   width: 100%;
-  position: relative;
+  margin: 8px 0;
 }
 
 .btn-main {
   background-color: #f4a7b9;
-  color: white;
+  color: #000;
   font-weight: bold;
 }
 
@@ -71,42 +83,20 @@ body {
   background-color: #f9c6d1;
   color: #8a2a42;
   font-weight: bold;
-  height: auto;
-  min-height: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 20;
+  transition: all 0.3s ease;
 }
 
 .btn-no {
-  background-color: rgba(213, 97, 192, 0.3);
-  color: black;
-  /* Кнопка "Нет" остаётся в потоке */
-  position: relative;
-  z-index: 10;
-  margin-top: 60px;
+  background-color: rgba(230, 90, 179, 0.7);
+  color: #000;
 }
 
-.btn:active {
-  transform: scale(0.96);
-}
-
-.question-image {
-  width: 180px;
-  height: 180px;
-  object-fit: cover;
-  border-radius: 16px;
-  margin: 20px 0;
-  border: 3px solid white;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+.final-content {
+  text-align: center;
 }
 
 .final-text {
-  font-size: 32px;
+  font-size: 24px;
   color: #8a2a42;
   font-weight: bold;
   margin-bottom: 20px;
@@ -119,16 +109,168 @@ body {
   box-shadow: 0 6px 20px rgba(0,0,0,0.2);
 }
 
-.hidden {
-  display: none !important;
+.next-arrow {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: #f9c6d1;
+  color: #8a2a42;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  z-index: 100;
 }
 
-.falling-heart {
+/* === СЛАЙДЕР === */
+#slideshow {
   position: fixed;
-  top: 50%;
-  left: 50%;
-  font-size: 20px;
-  opacity: 0;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 200;
+  overflow: hidden;
+}
+
+/* ФОН С СЕРДЕЧКАМИ */
+.slideshow-hearts {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1; /* под контентом */
   pointer-events: none;
-  z-index: 1000;
+}
+
+.slideshow-heart {
+  position: absolute;
+  font-size: 16px;
+  opacity: 0.5;
+}
+
+/* КОНТЕНТ СЛАЙДЕРА */
+.slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  opacity: 0;
+  transform: translateX(100%);
+  transition: transform 0.5s ease, opacity 0.5s ease;
+  z-index: 2; /* поверх фона */
+}
+
+.slide.active {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.slide.leaving {
+  transform: translateX(-100%);
+  opacity: 0;
+}
+
+.slide-text {
+  font-family: Georgia, serif;
+  font-size: 24px;
+  color: #8a2a42;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+  z-index: 3;
+  position: relative;
+}
+
+.slide-img,
+.slide-gif {
+  max-width: 90%;
+  max-height: 70vh;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+  z-index: 3;
+  position: relative;
+}
+
+.gif-pair {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  margin-top: 16px;
+  z-index: 3;
+  position: relative;
+}
+
+.clash-gif {
+  max-width: calc(50% - 5px);
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+#songAudio {
+  width: 90%;
+  margin-top: 16px;
+  z-index: 3;
+  position: relative;
+}
+
+.slideshow-arrow {
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+  background: #f9c6d1;
+  color: #8a2a42;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  z-index: 10;
+}
+
+/* === ПОДСКАЗКА ПОД ФИНАЛОМ === */
+.hint-text {
+  font-family: Georgia, serif;
+  font-size: 16px;
+  color: #8a2a42;
+  margin-top: 20px;
+  opacity: 0.8;
+}
+
+/* === АНИМАЦИЯ ПОДПРЫГИВАНИЯ === */
+@keyframes bounceOnce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.next-arrow.bounce-hint {
+  animation: bounceOnce 1.5s ease-in-out;
+}
+
+.hidden {
+  display: none !important;
 }

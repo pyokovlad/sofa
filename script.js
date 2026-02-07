@@ -1,5 +1,8 @@
+// script.js
 let fontSize = 18;
 let height = 50;
+let currentSlideIndex = 0;
+const totalSlides = 4; // 0–4 → 5 слайдов
 
 function goToScreen1() {
   document.getElementById('screen0').classList.add('hidden');
@@ -7,55 +10,80 @@ function goToScreen1() {
 }
 
 function handleNoClick() {
-  fontSize += 12;
-  height += 60; 
-
+  fontSize += 4;
+  height += 50;
   const btnYes = document.getElementById('btnYes');
-  const btnNo = document.getElementById('btnNo');
-
   btnYes.style.fontSize = `${fontSize}px`;
   btnYes.style.height = `${height}px`;
-
-  btnNo.style.marginTop = `${height + 12}px`; 
 }
 
 function showFinal() {
   document.getElementById('screen0').classList.add('hidden');
   document.getElementById('screen1').classList.add('hidden');
-  document.getElementById('finalScreen').classList.remove('hidden');
-
-  createExplodingHearts();
+  const finalScreen = document.getElementById('finalScreen');
+  finalScreen.classList.remove('hidden');
+  
+  // Запускаем анимацию стрелки ОДИН РАЗ
+  const arrow = document.getElementById('nextArrow');
+  if (!arrow.hasBounced) {
+    arrow.classList.add('bounce-hint');
+    arrow.hasBounced = true;
+  }
 }
 
-function createExplodingHearts() {
-  const emojis = ['❤️', '💖', '💗', '💘', '💕'];
+// === СЛАЙДЕР ===
+function openSlideshow() {
+  document.getElementById('finalScreen').classList.add('hidden');
+  const slideshow = document.getElementById('slideshow');
+  slideshow.classList.remove('hidden');
+  
+  if (!slideshow.hasHearts) {
+    createSlideshowHearts();
+    slideshow.hasHearts = true;
+  }
+
+  currentSlideIndex = 0;
+  document.getElementById('slideshowArrow').style.display = 'flex';
+}
+
+function createSlideshowHearts() {
+  const heartContainer = document.getElementById('slideshowHearts');
+  const colors = ['#ff4da6', '#a040ff', '#ff6ec7', '#8a2be2', '#ffb6c1', '#ff9aa2'];
   const count = 60;
 
   for (let i = 0; i < count; i++) {
-    setTimeout(() => {
-      const heart = document.createElement('div');
-      heart.className = 'falling-heart';
-      heart.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
-      
-      const angle = Math.random() * Math.PI * 2;
-      const speed = 100 + Math.random() * 200;
-      const vx = Math.cos(angle) * speed;
-      const vy = Math.sin(angle) * speed;
+    const heart = document.createElement('div');
+    heart.className = 'slideshow-heart';
+    heart.innerHTML = '❤️';
+    
+    const x = Math.random() * 100;
+    const y = Math.random() * 100;
+    heart.style.left = `${x}vw`;
+    heart.style.top = `${y}vh`;
+    
+    const color = colors[Math.floor(Math.random() * colors.length)];
+    const size = 12 + Math.random() * 20;
+    heart.style.color = color;
+    heart.style.fontSize = `${size}px`;
+    heart.style.opacity = `${0.3 + Math.random() * 0.5}`;
 
-      document.body.appendChild(heart);
+    heartContainer.appendChild(heart);
+  }
+}
 
-      heart.style.opacity = '1';
-      heart.style.transform = `translate(${vx}px, ${vy}px)`;
+function nextSlide() {
+  if (currentSlideIndex >= totalSlides) return;
 
-      setTimeout(() => {
-        heart.style.transition = 'transform 2s cubic-bezier(0.2, 0.8, 0.4, 1), opacity 2s';
-        heart.style.transform = `translate(${vx}px, ${vy + 600}px) rotate(${Math.random() * 720}deg)`;
-        heart.style.opacity = '0';
-      }, 50);
+  const slides = document.querySelectorAll('.slide');
+  const current = slides[currentSlideIndex];
+  const next = slides[currentSlideIndex + 1];
 
-      setTimeout(() => {
-        if (heart.parentNode) heart.parentNode.removeChild(heart);
-      }, 2100);
-    }, i * 20);
+  current.classList.add('leaving');
+  next.classList.add('active');
+
+  currentSlideIndex++;
+
+  if (currentSlideIndex === totalSlides) {
+    document.getElementById('slideshowArrow').style.display = 'none';
   }
 }

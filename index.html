@@ -9,24 +9,69 @@
 <body>
   <div class="background"></div>
 
+  <!-- ЭКРАН 0 -->
   <div id="screen0" class="screen">
     <div class="text">Пожалуйста, включи звук на телефоне,<br>чтобы ничего не пропустить ❤️</div>
     <button class="btn btn-main" onclick="goToScreen1()">Готово!</button>
   </div>
 
+  <!-- ЭКРАН 1 -->
   <div id="screen1" class="screen hidden">
-    <div class="text">Станешь ли ты моим возлюбленным?</div>
-    <img src="photo.jpg" alt="Ты" class="question-image">
+    <div class="fixed-content">
+      <div class="text">Станешь ли ты моим возлюбленным?</div>
+      <img src="photo.jpg" alt="Ты" class="question-image">
+    </div>
     
-    <div class="buttons-container">
+    <div class="buttons-area">
       <button id="btnYes" class="btn btn-yes" onclick="showFinal()">Да</button>
       <button id="btnNo" class="btn btn-no" onclick="handleNoClick()">Нет</button>
     </div>
   </div>
 
-  <div id="finalScreen" class="screen hidden">
+  <!-- ФИНАЛ -->
+<div id="finalScreen" class="screen hidden">
+  <div class="final-content">
     <div class="final-text">Я так и знала!</div>
     <img src="final.gif" alt="Ура!" class="final-gif">
+  </div>
+  
+  <!-- НОВАЯ НАДПИСЬ -->
+  <div class="hint-text">Есть ещё кое-что… (справа снизу)</div>
+  
+  <div id="nextArrow" class="next-arrow" onclick="openSlideshow()">→</div>
+</div>
+
+  <!-- СЛАЙДЕР -->
+  <div id="slideshow" class="hidden">
+    <!-- ФОН С СЕРДЕЧКАМИ -->
+    <div id="slideshowHearts" class="slideshow-hearts"></div>
+    
+    <!-- КОНТЕНТ -->
+    <div class="slide active">
+      <div class="slide-text">Песня, которая ассоциируется с нами</div>
+      <audio src="song.mp3" controls></audio>
+    </div>
+    <div class="slide">
+      <div class "slide-text">Мы, если бы были персонажами мультфильма</div>
+      <img src="cartoon.jpg" class="slide-img">
+    </div>
+    <div class="slide">
+      <div class="slide-text">Мы, если бы были котиками</div>
+      <img src="cats.jpg" class="slide-img">
+    </div>
+    <div class="slide">
+      <div class="slide-text">Мы, если бы были в Клеш Рояле</div>
+      <div class="gif-pair">
+        <img src="clash1.gif" class="clash-gif">
+        <img src="clash2.gif" class="clash-gif">
+      </div>
+    </div>
+    <div class="slide">
+      <div class="slide-text">С праздником, любими! ❤️</div>
+      <img src="final2.gif" class="slide-gif">
+    </div>
+
+    <div id="slideshowArrow" class="slideshow-arrow" onclick="nextSlide()">→</div>
   </div>
 
   <script src="script.js"></script>
