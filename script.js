@@ -1,8 +1,7 @@
-// script.js
 let fontSize = 18;
 let height = 50;
 let currentSlideIndex = 0;
-const totalSlides = 4; // 0–4 → 5 слайдов
+const totalSlides = 4; 
 
 function goToScreen1() {
   document.getElementById('screen0').classList.add('hidden');
@@ -23,7 +22,6 @@ function showFinal() {
   const finalScreen = document.getElementById('finalScreen');
   finalScreen.classList.remove('hidden');
   
-  // Запускаем анимацию стрелки ОДИН РАЗ
   const arrow = document.getElementById('nextArrow');
   if (!arrow.hasBounced) {
     arrow.classList.add('bounce-hint');
@@ -31,7 +29,6 @@ function showFinal() {
   }
 }
 
-// === СЛАЙДЕР ===
 function openSlideshow() {
   document.getElementById('finalScreen').classList.add('hidden');
   const slideshow = document.getElementById('slideshow');

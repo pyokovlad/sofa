@@ -9,13 +9,11 @@
 <body>
   <div class="background"></div>
 
-  <!-- ЭКРАН 0 -->
   <div id="screen0" class="screen">
     <div class="text">Пожалуйста, включи звук на телефоне,<br>чтобы ничего не пропустить ❤️</div>
     <button class="btn btn-main" onclick="goToScreen1()">Готово!</button>
   </div>
 
-  <!-- ЭКРАН 1 -->
   <div id="screen1" class="screen hidden">
     <div class="fixed-content">
       <div class="text">Станешь ли ты моим возлюбленным?</div>
@@ -28,25 +26,20 @@
     </div>
   </div>
 
-  <!-- ФИНАЛ -->
 <div id="finalScreen" class="screen hidden">
   <div class="final-content">
     <div class="final-text">Я так и знала!</div>
     <img src="final.gif" alt="Ура!" class="final-gif">
   </div>
   
-  <!-- НОВАЯ НАДПИСЬ -->
   <div class="hint-text">Есть ещё кое-что… (справа снизу)</div>
   
   <div id="nextArrow" class="next-arrow" onclick="openSlideshow()">→</div>
 </div>
 
-  <!-- СЛАЙДЕР -->
   <div id="slideshow" class="hidden">
-    <!-- ФОН С СЕРДЕЧКАМИ -->
     <div id="slideshowHearts" class="slideshow-hearts"></div>
     
-    <!-- КОНТЕНТ -->
     <div class="slide active">
       <div class="slide-text">Песня, которая ассоциируется с нами</div>
       <audio src="song.mp3" controls></audio>
