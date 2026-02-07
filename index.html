@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>Для тебя</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="background"></div>
+
+  <div id="screen0" class="screen">
+    <div class="text">Пожалуйста, включи звук на телефоне,<br>чтобы ничего не пропустить ❤️</div>
+    <button class="btn btn-main" onclick="goToScreen1()">Готово!</button>
+  </div>
+
+  <div id="screen1" class="screen hidden">
+    <div class="text">Станешь ли ты моим возлюбленным?</div>
+    <img src="photo.jpg" alt="Ты" class="question-image">
+    
+    <div class="buttons-container">
+      <button id="btnYes" class="btn btn-yes" onclick="showFinal()">Да</button>
+      <button id="btnNo" class="btn btn-no" onclick="handleNoClick()">Нет</button>
+    </div>
+  </div>
+
+  <div id="finalScreen" class="screen hidden">
+    <div class="final-text">Я так и знала!</div>
+    <img src="final.gif" alt="Ура!" class="final-gif">
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
